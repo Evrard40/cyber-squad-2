@@ -11,6 +11,19 @@
         box-sizing: border-box;
 
     }
+    .logo{ font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 22px; font-style: oblique; }
+        nav,ul,li,a{ display: flex;
+            
+            flex-wrap: wrap;
+            gap: 20px; text-align: center; text-decoration: none; text-transform: uppercase; height: auto; } 
+        a:hover{ background-color: #444; transition: transform 1s; transform: translateY(-8px) ; }
+        a{ text-align: center; background-color: aliceblue; padding: 15px; border-radius: 15px; color: black; font-style: oblique; } 
+        .classe{ font-style: italic; font-size: 35px; color: rgb(6, 241, 37); background-color: rgb(121, 110, 110); padding: 5px 12px; border-radius: 25px; border: 2px solid rgb(10, 236, 183); } 
+
+    header{ background: khaki; padding: 15px 5%; display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 999; }
+
     body{
         font-family: Georgia, 'Times New Roman', Times, serif;
         background: #fffaf4;
@@ -288,9 +301,30 @@
             border-bottom: none;
         }
     }
+     footer{ background: #222; color: white; margin-top: 40px; padding-top: 30px; }
+        .footer-contenu{ display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; padding: 0 5%; max-width: 1200px; margin: 0 auto; }
+        .footer-colonne h3{ color: khaki; margin-bottom: 15px; font-size: 20px; }
+        .footer-colonne p, .footer-colonne a{ color: #ccc; line-height: 1.8; text-decoration: none; }
+        .footer-colonne a:hover{ color: #00d4ff; }
+        .reseaux{ display: flex; gap: 15px; }
+        .footer-bas{ text-align: center; padding: 20px; margin-top: 30px; border-top: 1px solid #444; background: #111; font-size: 14px; }
+
     </style>
 </head>
 <body>
+    <header>
+        <div class="logo">
+            <span class="classe">Prestige pagne</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="accueil.html">Acceuil</a></li>
+                <li><a href="a propos.html">A propos</a></li>
+                <li><a href="menu.html">Menu</a> </li>
+                <li><a href="commande.html">Commande (<span id="nb-article-menu">0</span>)</a></li>
+            </ul>
+        </nav>
+    </header>
     <main class="about-page">
         <section class="presentation">
             <div class="presentation-text">
@@ -360,8 +394,36 @@
             </section>
     </main>
     <footer>
-    <p>© 2024 Prestige Pagnes</p>
-</footer>
+        <div class="footer-contenu">
+            <div class="footer-colonne">
+                <h3>Prestige pagne</h3>
+                <p>Votre spécialiste en Wax, Basin et tissus de qualité au Bénin.</p>
+            </div>
+            <div class="footer-colonne">
+                <h3>Contact</h3>
+                <p>📍 BENIN / Natitingou, Ourbouga</p>
+                <p>📞 01 97XXXXXXX</p>
+                <p>✉️ prestigepagne@gmail.com</p>
+            </div>
+            <div class="footer-colonne">
+                <h3>Suivez-nous</h3>
+                <div class="reseaux">
+                    <a href="#">WhatsApp</a>
+                    <a href="#">Facebook</a>
+                    <a href="#">Instagram</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bas">
+            <p>© 2026 Prestige pagne. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Pour afficher le nombre d'articles dans le menu
+        let panier = JSON.parse(localStorage.getItem('panier')) || []
+        document.querySelector('#nb-article-menu').textContent = panier.reduce((sum, item) => sum + item.quantite, 0)
+    </script>
 <div class="carte" data-aos="zoom-in"></div>
 </body>
 </html>
