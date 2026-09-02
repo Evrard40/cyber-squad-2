@@ -59,6 +59,7 @@
     .grille-produits {
       display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem;
     }
+    .carte-produit[hidden] { display: none; }
     .carte-produit {
       background: var(--bg-surface); border: 1px solid var(--border); border-radius: 6px;
       overflow: hidden; transition: var(--transition); display: flex; flex-direction: column;
@@ -113,6 +114,54 @@
       z-index: 1500; display: none; opacity: 0; transition: opacity 0.3s ease;
     }
     .voile.actif { display: block; opacity: 1; }
+    #popup-form { position: fixed; inset: 0; z-index: 3000; display: flex; align-items: center; justify-content: center; padding: 1rem; background: rgba(0,0,0,0.55); }
+    #popup-form.hidden { display: none; }
+    .form-contenu { position: relative; width: min(100%, 520px); max-height: 90vh; overflow-y: auto; padding: 2rem; background: var(--bg-surface); border-radius: 6px; box-shadow: var(--shadow); }
+    #fermer-form { position: absolute; top: 0.7rem; right: 1rem; font-size: 2rem; color: var(--text-muted); cursor: pointer; }
+    .form-contenu h2 { margin-bottom: 1.5rem; }
+    .form-contenu label { display: block; margin-top: 1rem; font-weight: 600; }
+    .form-contenu input, .form-contenu select { width: 100%; margin-top: 0.35rem; padding: 0.7rem; border: 1px solid var(--border); border-radius: 4px; }
+    .btn-envoyer, .btn-modifier { width: 100%; margin-top: 1.2rem; padding: 0.8rem; border: 0; border-radius: 4px; cursor: pointer; font-weight: 600; }
+    .btn-envoyer { background: var(--accent); color: white; }
+    .btn-modifier { background: var(--primary); color: white; }
+
+    footer { margin-top: 4rem; padding-top: 2.5rem; background: var(--primary); color: white; }
+    .footer-contenu { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+    .footer-colonne h3 { margin-bottom: 0.8rem; color: var(--accent); }
+    .footer-colonne p, .footer-colonne a { color: #d8d5cf; line-height: 1.8; text-decoration: none; }
+    .footer-colonne a:hover { color: var(--accent); }
+    .reseaux { display: flex; flex-wrap: wrap; gap: 1rem; }
+    .footer-bas { margin-top: 2rem; padding: 1rem; border-top: 1px solid #3a3a3a; background: #090909; text-align: center; color: #aaa; font-size: 0.9rem; }
+
+    @media (max-width: 768px) {
+      .navbar { flex-wrap: wrap; gap: 0.8rem; padding: 1rem 5%; }
+      .logo { font-size: 1.25rem; letter-spacing: 2px; }
+      .navbar nav { width: 100%; order: 3; }
+      .nav-links { justify-content: center; gap: 1rem 1.4rem; flex-wrap: wrap; }
+      .header-actions { margin-left: auto; }
+      .container { margin: 2rem auto 3rem; padding: 0 1rem; }
+      .page-header h1 { font-size: 1.8rem; }
+      .grille-produits { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+      .image-produit { height: 180px; }
+      .infos-produit { padding: 1rem; }
+      .controle-metrage { align-items: flex-start; flex-wrap: wrap; }
+      .controle-metrage span { font-size: 0.85rem; }
+      .tiroir-panier { width: min(380px, 92vw); }
+      .form-contenu { padding: 1.5rem; }
+    }
+
+    @media (max-width: 520px) {
+      .nav-links { gap: 0.7rem; font-size: 0.9rem; }
+      .grille-produits { grid-template-columns: 1fr; }
+      .image-produit { height: 220px; }
+      .page-header h1 { font-size: 1.55rem; }
+      .bouton-filtre { flex: 1 1 auto; }
+      .form-contenu { padding: 1.25rem; }
+    }
+
+    @media (max-width: 768px) {
+      .footer-contenu { grid-template-columns: 1fr; padding: 0 1rem; gap: 1.5rem; }
+    }
   </style>
 </head>
 <body>
@@ -144,7 +193,7 @@
 
     <div class="filtre-categories" aria-label="Filtrer par catégorie">
       {% for category in categories %}
-        <button class="bouton-filtre{% if forloop.first %} actif{% endif %}" data-category="{{ category }}">{{ category }}</button>
+        <button type="button" class="bouton-filtre{% if forloop.first %} actif{% endif %}" data-filter="{{ category }}">{{ category }}</button>
       {% endfor %}
     </div>
 
@@ -161,7 +210,7 @@
               <input type="number" id="{{ produit.id }}" value="1" min="0.5" step="0.5">
               <span>mètre(s)</span>
             </div>
-            <button class="bouton-ajouter" data-name="{{ produit.nom }}" data-price="{{ produit.prix }}" data-image="{% static produit.image %}" data-input="{{ produit.id }}">
+            <button class="bouton-ajouter" data-product-id="{{ produit.id }}" data-name="{{ produit.nom }}" data-price="{{ produit.prix }}" data-image="{% static produit.image %}" data-input="{{ produit.id }}">
               <i class="fa-solid fa-cart-plus"></i> Ajouter au panier
             </button>
           </div>
@@ -169,6 +218,28 @@
       {% endfor %}
     </div>
   </main>
+
+  <footer>
+    <div class="footer-contenu">
+      <div class="footer-colonne">
+        <h3>TISSUTHÈQUE</h3>
+        <p>Des tissus d'exception pour donner vie à vos créations.</p>
+      </div>
+      <div class="footer-colonne">
+        <h3>Navigation</h3>
+        <p><a href="{% url 'accueil' %}">Accueil</a></p>
+        <p><a href="{% url 'collection' %}">Collection</a></p>
+        <p><a href="{% url 'nouveautes' %}">Nouveautés</a></p>
+      </div>
+      <div class="footer-colonne">
+        <h3>Contact</h3>
+        <p>Natitingou, Bénin</p>
+        <p>+229 01 97 XX XX XX</p>
+        <p>contact@tissutheque.com</p>
+      </div>
+    </div>
+    <div class="footer-bas"><p>&copy; 2026 TISSUTHÈQUE. Tous droits réservés.</p></div>
+  </footer>
 
   <!-- PANIER SLIDE-OVER -->
   <div class="voile" id="voile"></div>
@@ -183,18 +254,43 @@
         <span>Total :</span>
         <span id="totalPanier">0 F CFA</span>
       </div>
-      <button class="bouton-commande" id="boutonCommande">Valider la Commande</button>
+      <button class="bouton-commande" id="boutonCommande">Confirmer la Commande</button>
     </div>
   </aside>
+
+  <div id="popup-form" class="hidden" onclick="fermerSiFond(event)">
+    <div class="form-contenu" onclick="event.stopPropagation()">
+      <span id="fermer-form" onclick="fermerFormulaire()">&times;</span>
+      <h2>Finaliser votre commande</h2>
+      <form id="form-commande">
+        <label for="nom">Nom et Prénom *</label>
+        <input type="text" id="nom" required>
+        <label for="email">Adresse Gmail *</label>
+        <input type="email" id="email" placeholder="exemple@gmail.com" required>
+        <label for="recuperation">Comment voulez-vous recevoir ? *</label>
+        <select id="recuperation" required>
+          <option value="">-- Choisir --</option>
+          <option value="Livraison à domicile">Livraison</option>
+          <option value="Retrait à la boutique">Je viens à la boutique</option>
+        </select>
+        <label for="adresse">Lieu de domicile / Adresse *</label>
+        <input type="text" id="adresse" required placeholder="Ex: Abomey-Calavi, Godomey, près du marché">
+        <label for="telephone">Numéro Téléphone / WhatsApp *</label>
+        <input type="number" id="telephone" required placeholder="Ex: +299 01XXXXXXXX">
+        <button type="submit" class="btn-envoyer">Envoyer la commande</button>
+        <button type="button" class="btn-modifier" onclick="fermerFormulaire()">Modifier la commande</button>
+      </form>
+    </div>
+  </div>
 
   <script>
     function obtenirPanier() { return JSON.parse(localStorage.getItem('app_cart')) || []; }
     function enregistrerPanier(panier) { localStorage.setItem('app_cart', JSON.stringify(panier)); mettreAJourPanier(); }
 
-    function ajouterArticle(nom, prix, image, identifiantChamp) {
+    function ajouterArticle(nom, prix, image, identifiantChamp, produitId) {
       const metres = parseFloat(document.getElementById(identifiantChamp).value) || 1;
       const panier = obtenirPanier();
-      panier.push({ nom, prix, image, metres });
+      panier.push({ nom, prix, image, metres, produitId: Number(produitId) });
       enregistrerPanier(panier);
       ouvrirPanier();
     }
@@ -241,21 +337,42 @@
     const tiroirPanier = document.getElementById('tiroirPanier');
     const voile = document.getElementById('voile');
 
-    function ouvrirPanier() { tiroirPanier.classList.add('ouvert'); voile.classList.add('actif'); }
+    function ouvrirPanier() {
+      tiroirPanier.classList.add('ouvert');
+      voile.classList.add('actif');
+    }
     function fermerPanier() { tiroirPanier.classList.remove('ouvert'); voile.classList.remove('actif'); }
+    function ouvrirFormulaire() { document.getElementById('popup-form').classList.remove('hidden'); }
+    function fermerFormulaire() { document.getElementById('popup-form').classList.add('hidden'); }
+    function fermerSiFond(event) { if (event.target.id === 'popup-form') fermerFormulaire(); }
 
-    document.getElementById('ouvrirPanier').addEventListener('click', ouvrirPanier);
+    document.getElementById('ouvrirPanier').addEventListener('click', () => {
+      ouvrirPanier();
+      ouvrirFormulaire();
+    });
     document.getElementById('fermerPanier').addEventListener('click', fermerPanier);
     voile.addEventListener('click', fermerPanier);
 
     document.getElementById('boutonCommande').addEventListener('click', () => {
-      if (obtenirPanier().length === 0) { alert('Votre panier est vide !'); }
-      else { alert('Merci pour votre commande !'); enregistrerPanier([]); fermerPanier(); }
+      ouvrirFormulaire();
+    });
+
+    document.getElementById('form-commande').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const panier = obtenirPanier();
+      if (!panier.length) { alert('Votre panier est vide !'); return; }
+      const reponse = await fetch('{% url "creer-commande" %}', {
+        method: 'POST', headers: { 'Content-Type': 'application/json', 'X-CSRFToken': '{{ csrf_token }}' },
+        body: JSON.stringify({ client: { nom: document.getElementById('nom').value, email: document.getElementById('email').value }, articles: panier.map((article) => ({ produit_id: article.produitId, metres: article.metres })) })
+      });
+      if (!reponse.ok) { alert('Impossible d\'envoyer la commande.'); return; }
+      alert('Merci pour votre commande ! Votre demande a été prise en compte.');
+      enregistrerPanier([]); fermerFormulaire(); fermerPanier();
     });
 
     document.querySelectorAll('.bouton-ajouter').forEach((bouton) => {
       bouton.addEventListener('click', () => {
-        ajouterArticle(bouton.dataset.name, Number(bouton.dataset.price), bouton.dataset.image, bouton.dataset.input);
+        ajouterArticle(bouton.dataset.name, Number(bouton.dataset.price), bouton.dataset.image, bouton.dataset.input, bouton.dataset.productId);
       });
     });
 
@@ -263,8 +380,10 @@
       bouton.addEventListener('click', () => {
         document.querySelectorAll('.bouton-filtre').forEach((filtre) => filtre.classList.remove('actif'));
         bouton.classList.add('actif');
+        const categorieChoisie = bouton.dataset.filter.trim().normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
         document.querySelectorAll('.carte-produit').forEach((carte) => {
-          carte.hidden = bouton.dataset.category !== 'Toutes' && carte.dataset.category !== bouton.dataset.category;
+          const categorieProduit = carte.dataset.category.trim().normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+          carte.hidden = categorieChoisie !== 'toutes' && categorieProduit !== categorieChoisie;
         });
       });
     });
