@@ -113,6 +113,16 @@
       z-index: 1500; display: none; opacity: 0; transition: opacity 0.3s ease;
     }
     .voile.actif { display: block; opacity: 1; }
+    #popup-form { position: fixed; inset: 0; z-index: 3000; display: flex; align-items: center; justify-content: center; padding: 1rem; background: rgba(0,0,0,0.55); }
+    #popup-form.hidden { display: none; }
+    .form-contenu { position: relative; width: min(100%, 520px); max-height: 90vh; overflow-y: auto; padding: 2rem; background: var(--bg-surface); border-radius: 6px; box-shadow: var(--shadow); }
+    #fermer-form { position: absolute; top: 0.7rem; right: 1rem; font-size: 2rem; color: var(--text-muted); cursor: pointer; }
+    .form-contenu h2 { margin-bottom: 1.5rem; }
+    .form-contenu label { display: block; margin-top: 1rem; font-weight: 600; }
+    .form-contenu input, .form-contenu select { width: 100%; margin-top: 0.35rem; padding: 0.7rem; border: 1px solid var(--border); border-radius: 4px; }
+    .btn-envoyer, .btn-modifier { width: 100%; margin-top: 1.2rem; padding: 0.8rem; border: 0; border-radius: 4px; cursor: pointer; font-weight: 600; }
+    .btn-envoyer { background: var(--accent); color: white; }
+    .btn-modifier { background: var(--primary); color: white; }
   </style>
 </head>
 <body>
@@ -155,7 +165,7 @@
               <input type="number" id="{{ produit.id }}" value="1" min="0.5" step="0.5">
               <span>mètre(s)</span>
             </div>
-            <button class="bouton-ajouter" data-name="{{ produit.nom }}" data-price="{{ produit.prix }}" data-image="{% static produit.image %}" data-input="{{ produit.id }}">
+            <button class="bouton-ajouter" data-product-id="{{ produit.id }}" data-name="{{ produit.nom }}" data-price="{{ produit.prix }}" data-image="{% static produit.image %}" data-input="{{ produit.id }}">
               <i class="fa-solid fa-cart-plus"></i> Ajouter au panier
             </button>
           </div>
@@ -181,14 +191,31 @@
     </div>
   </aside>
 
+  <div id="popup-form" class="hidden" onclick="fermerSiFond(event)">
+    <div class="form-contenu" onclick="event.stopPropagation()">
+      <span id="fermer-form" onclick="fermerFormulaire()">&times;</span>
+      <h2>Finaliser votre commande</h2>
+      <form id="form-commande">
+        <label for="nom">Nom et Prénom *</label><input type="text" id="nom" required>
+        <label for="email">Adresse Gmail *</label><input type="email" id="email" placeholder="exemple@gmail.com" required>
+        <label for="recuperation">Comment voulez-vous recevoir ? *</label>
+        <select id="recuperation" required><option value="">-- Choisir --</option><option value="Livraison à domicile">Livraison</option><option value="Retrait à la boutique">Je viens à la boutique</option></select>
+        <label for="adresse">Lieu de domicile / Adresse *</label><input type="text" id="adresse" required>
+        <label for="telephone">Numéro Téléphone / WhatsApp *</label><input type="tel" id="telephone" required>
+        <button type="submit" class="btn-envoyer">Envoyer la commande</button>
+        <button type="button" class="btn-modifier" onclick="fermerFormulaire()">Modifier la commande</button>
+      </form>
+    </div>
+  </div>
+
   <script>
     function obtenirPanier() { return JSON.parse(localStorage.getItem('app_cart')) || []; }
     function enregistrerPanier(panier) { localStorage.setItem('app_cart', JSON.stringify(panier)); mettreAJourPanier(); }
 
-    function ajouterArticle(nom, prix, image, identifiantChamp) {
+    function ajouterArticle(nom, prix, image, identifiantChamp, produitId) {
       const metres = parseFloat(document.getElementById(identifiantChamp).value) || 1;
       const panier = obtenirPanier();
-      panier.push({ nom, prix, image, metres });
+      panier.push({ nom, prix, image, metres, produitId: Number(produitId) });
       enregistrerPanier(panier);
       ouvrirPanier();
     }
@@ -209,18 +236,18 @@
       if (panier.length === 0) {
         conteneurArticles.innerHTML = '<p style="text-align:center; color: var(--text-muted); margin-top: 2rem;">Votre panier est vide.</p>';
       } else {
-        cart.forEach((item, index) => {
-          const itemPrice = item.price * item.meters;
-          total += itemPrice;
+        panier.forEach((article, index) => {
+          const prixArticle = article.prix * article.metres;
+          total += prixArticle;
 
           const el = document.createElement('div');
           el.className = 'cart-item';
           el.innerHTML = `
-            <img src="${item.image}" alt="${item.name}">
+            <img src="${article.image}" alt="${article.nom}">
             <div class="details-article" style="flex-grow:1;">
-              <h4>${item.name}</h4>
-              <p>${item.meters}m x ${item.price.toLocaleString('fr-FR')} F CFA</p>
-              <strong>${itemPrice.toLocaleString('fr-FR')} F CFA</strong>
+              <h4>${article.nom}</h4>
+              <p>${article.metres}m x ${article.prix.toLocaleString('fr-FR')} F CFA</p>
+              <strong>${prixArticle.toLocaleString('fr-FR')} F CFA</strong>
             </div>
             <button onclick="retirerArticle(${index})" style="background:none; border:none; color:#c53030; cursor:pointer;">
               <i class="fa-solid fa-trash-can"></i>
@@ -237,19 +264,27 @@
 
     function ouvrirPanier() { tiroirPanier.classList.add('ouvert'); voile.classList.add('actif'); }
     function fermerPanier() { tiroirPanier.classList.remove('ouvert'); voile.classList.remove('actif'); }
+    function ouvrirFormulaire() { document.getElementById('popup-form').classList.remove('hidden'); }
+    function fermerFormulaire() { document.getElementById('popup-form').classList.add('hidden'); }
+    function fermerSiFond(event) { if (event.target.id === 'popup-form') fermerFormulaire(); }
 
-    document.getElementById('ouvrirPanier').addEventListener('click', ouvrirPanier);
+    document.getElementById('ouvrirPanier').addEventListener('click', () => { ouvrirPanier(); ouvrirFormulaire(); });
     document.getElementById('fermerPanier').addEventListener('click', fermerPanier);
     voile.addEventListener('click', fermerPanier);
 
-    document.getElementById('boutonCommande').addEventListener('click', () => {
-      if (obtenirPanier().length === 0) { alert('Votre panier est vide !'); }
-      else { alert('Merci pour votre commande !'); enregistrerPanier([]); fermerPanier(); }
+    document.getElementById('boutonCommande').addEventListener('click', ouvrirFormulaire);
+    document.getElementById('form-commande').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const panier = obtenirPanier();
+      if (!panier.length) { alert('Votre panier est vide !'); return; }
+      const reponse = await fetch('{% url "creer-commande" %}', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-CSRFToken': '{{ csrf_token }}' }, body: JSON.stringify({ client: { nom: document.getElementById('nom').value, email: document.getElementById('email').value }, articles: panier.map((article) => ({ produit_id: article.produitId, metres: article.metres })) }) });
+      if (!reponse.ok) { alert('Impossible d\'envoyer la commande.'); return; }
+      alert('Merci pour votre commande ! Votre demande a été prise en compte.'); enregistrerPanier([]); fermerFormulaire(); fermerPanier();
     });
 
     document.querySelectorAll('.bouton-ajouter').forEach((bouton) => {
       bouton.addEventListener('click', () => {
-        ajouterArticle(bouton.dataset.name, Number(bouton.dataset.price), bouton.dataset.image, bouton.dataset.input);
+        ajouterArticle(bouton.dataset.name, Number(bouton.dataset.price), bouton.dataset.image, bouton.dataset.input, bouton.dataset.productId);
       });
     });
 
