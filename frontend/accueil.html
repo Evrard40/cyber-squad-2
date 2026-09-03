@@ -3,17 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accueil - Chez.BizTissu</title>
+    <title>Accueil - Prestige pagne</title>
     <style>
         *{ box-sizing: border-box; padding: 0%; margin: 0%; }
 
         .logo{ font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 22px; font-style: oblique; }
-        nav,ul,li,a{ display: flex; gap: 20px; text-align: center; text-decoration: none; text-transform: uppercase; height: auto; } 
+        nav,ul,li,a{ display: flex;
+            
+            flex-wrap: wrap;
+            gap: 20px; text-align: center; text-decoration: none; text-transform: uppercase; height: auto; } 
         a:hover{ background-color: #444; transition: transform 1s; transform: translateY(-8px) ; }
         a{ text-align: center; background-color: aliceblue; padding: 15px; border-radius: 15px; color: black; font-style: oblique; } 
         .classe{ font-style: italic; font-size: 35px; color: rgb(6, 241, 37); background-color: rgb(121, 110, 110); padding: 5px 12px; border-radius: 25px; border: 2px solid rgb(10, 236, 183); } 
 
-        header{ background: khaki; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 999; }
+        header{ background: khaki; padding: 15px 5%; display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 999; }
 
         /* HERO AVEC TA PHOTO DE PAGNE */
         .hero{
@@ -129,12 +134,59 @@
         .footer-colonne a:hover{ color: #00d4ff; }
         .reseaux{ display: flex; gap: 15px; }
         .footer-bas{ text-align: center; padding: 20px; margin-top: 30px; border-top: 1px solid #444; background: #111; font-size: 14px; }
+
+
+        /* ========== RESPONSIVE ICI ========== */
+
+/* AJOUTS DANS TON CSS EXISTANT */
+img{ width: 100%; } /* j'ai changé width: 300px en 100% */
+header, nav, ul { flex-wrap: wrap; } /* pour que ça ne casse pas */
+.bnt_ajouter{ width: 100%; } /* bouton prend toute la largeur */
+
+/* TABLETTE : 2 colonnes */
+@media screen and (max-width: 900px){
+    .robot{
+        grid-template-columns: repeat(2 ,1fr); 
+    }
+    .classe{
+        font-size: 25px;
+    }
+    h1{
+        font-size: 28px;
+    }
+}
+
+/* TELEPHONE : 1 colonne + menu en colonne */
+@media screen and (max-width: 600px){
+    header{
+        flex-direction: column;
+        gap: 15px;
+    }
+    nav ul{
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+    nav ul li a{
+        width: 100%;
+    }
+    .robot{
+        grid-template-columns: repeat(1 ,1fr);
+        padding: 10px;
+    }
+    .classe{
+        font-size: 22px;
+    }
+    h1{
+        font-size: 24px;
+    }
+}
     </style>
 </head>
 <body>
     <header>
         <div class="logo">
-            <span class="classe">Tissu d'Exception</span>
+            <span class="classe">Prestige pagne</span>
         </div>
         <nav>
             <ul>
@@ -149,7 +201,7 @@
     <!-- SECTION 1 : GRANDE PHOTO + TEXTE -->
     <section class="hero">
         <div class="hero-contenu">
-            <h1>Chez.BizTissu</h1>
+            <h1>Prestige pagne</h1>
             <p>Votre spécialiste en Wax, Basin et Tissus de qualité au Bénin</p>
             <a href="menu.html" class="btn-hero">Voir le Catalogue</a>
         </div>
@@ -157,7 +209,7 @@
 
     <!-- SECTION 2 : QUI SOMMES NOUS -->
     <section class="presentation">
-        <h2>Bienvenue chez Chez.BizTissu</h2>
+        <h2>Bienvenue chez Prestige pagne</h2>
         <p>
             Depuis Natitingou, nous vous proposons les plus beaux pagnes Wax, Basin riche et Tissus Africa. 
             Qualité garantie, prix abordable et stock toujours disponible. 
@@ -187,14 +239,14 @@
     <footer>
         <div class="footer-contenu">
             <div class="footer-colonne">
-                <h3>Chez.BizTissu</h3>
+                <h3>Prestige pagne</h3>
                 <p>Votre spécialiste en Wax, Basin et tissus de qualité au Bénin.</p>
             </div>
             <div class="footer-colonne">
                 <h3>Contact</h3>
                 <p>📍 BENIN / Natitingou, Ourbouga</p>
                 <p>📞 01 97XXXXXXX</p>
-                <p>✉️ chezbiztissu@gmail.com</p>
+                <p>✉️ prestigepagne@gmail.com</p>
             </div>
             <div class="footer-colonne">
                 <h3>Suivez-nous</h3>
@@ -206,7 +258,7 @@
             </div>
         </div>
         <div class="footer-bas">
-            <p>© 2026 Chez.BizTissu. Tous droits réservés.</p>
+            <p>© 2026 Prestige pagne. Tous droits réservés.</p>
         </div>
     </footer>
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Commande - Chez.BizTissu</title>
+    <title>Commande - Prestige pagne</title>
     <style>
         *{ box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -11,6 +11,7 @@
         body{ background: whitesmoke; font-family: Arial; }
 
         nav,ul,li,a{
+            
             text-transform: uppercase;
             text-decoration: none;
             font-style: oblique;
@@ -18,7 +19,9 @@
         }
 
 
-        header{ background: khaki; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; }
+        header{ background: khaki; padding: 15px 5%; display: flex;
+             justify-content: space-between; align-items: center;
+             }
 
 
         .zone-panier{ background: white; margin: 20px; padding: 20px; border-radius: 15px; border: 1px solid black; }
@@ -108,13 +111,62 @@
     background: #111;
     font-size: 14px;
 }
+
+
+
+
+/* ========== RESPONSIVE ICI ========== */
+
+/* AJOUTS DANS TON CSS EXISTANT */
+img{ width: 100%; } /* j'ai changé width: 300px en 100% */
+header, nav, ul { flex-wrap: wrap; } /* pour que ça ne casse pas */
+.bnt_ajouter{ width: 100%; } /* bouton prend toute la largeur */
+
+/* TABLETTE : 2 colonnes */
+@media screen and (max-width: 900px){
+    .robot{
+        grid-template-columns: repeat(2 ,1fr); 
+    }
+    .classe{
+        font-size: 25px;
+    }
+    h1{
+        font-size: 28px;
+    }
+}
+
+/* TELEPHONE : 1 colonne + menu en colonne */
+@media screen and (max-width: 600px){
+    header{
+        flex-direction: column;
+        gap: 15px;
+    }
+    nav ul{
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+    nav ul li a{
+        width: 100%;
+    }
+    .robot{
+        grid-template-columns: repeat(1 ,1fr);
+        padding: 10px;
+    }
+    .classe{
+        font-size: 22px;
+    }
+    h1{
+        font-size: 24px;
+    }
+}
     </style>
 </head>
 <body>
      <header>
         <div class="logo">
-            <span class="classe">B</span><br>
-            <table><tr><th class="seba">Chez.BizTissu</th></tr></table>
+            <span class="classe">Prestige pagne</span><br>
+            <table><tr><th class="seba"></th></tr></table>
         </div>
         <nav>
             <ul>
@@ -156,7 +208,7 @@
                 <input type="text" id="adresse" required placeholder="Ex: Abomey-Calavi, Godomey, près du marché">
 
                 <label>Numéro Téléphone / WhatsApp *</label>
-                <input type="tel" id="telephone" required placeholder="Ex: +299 0197XXXXXX">
+                <input type="number" id="telephone" required placeholder="Ex: +299 0197XXXXXX">
 
                 <button type="submit" class="btn-envoyer">Envoyer la commande</button>
                 <button type="button" class="btn-modifier" onclick="fermerFormulaire()">Modifier la commande</button>
@@ -169,7 +221,7 @@
     <footer>
     <div class="footer-contenu">
         <div class="footer-colonne">
-            <h3>Chez.BizTissu</h3>
+            <h3>Prestige pagne.</h3>
             <p>Votre spécialiste en Wax, Basin et tissus de qualité au Bénin.</p>
         </div>
 
@@ -177,7 +229,7 @@
             <h3>Contact</h3>
             <p>📍 BENIN / Natitingou, Ourbouga</p>
             <p>📞 01 97XXXXXXX</p>
-            <p>✉️ chezbiztissu@gmail.com</p>
+            <p>✉️ prestigepagne@gmail.com</p>
         </div>
 
         <div class="footer-colonne">
@@ -191,7 +243,7 @@
     </div>
 
     <div class="footer-bas">
-        <p>© 2026 Chez.BizTissu. Tous droits réservés.</p>
+        <p>© 2026 Prestige pagne. Tous droits réservés.</p>
     </div>
 </footer>
 
@@ -273,7 +325,7 @@
         window.open(`https://wa.me/${numero}?text=${message}`, '_blank')
 
         // MESSAGE DE CONFIRMATION
-        alert(`Bonjour ${nom}, votre commande a été effectuée avec succès dans la boutique de chez Biz.Tissu`)
+        alert(`Bonjour ${nom}, votre commande a été effectuée avec succès dans la boutique de Prestige pagne.`)
 
         // VIDER LE PANIER + FERMER LE FORMULAIRE
         panier = []
