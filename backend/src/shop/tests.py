@@ -16,6 +16,16 @@ class TestsBoutique(TestCase):
 			image='shop/images/test.jpg',
 		)
 
+	def test_pages_principales_sont_accessibles(self):
+		for url in ('/', '/collection/', '/nouveautes/'):
+			with self.subTest(url=url):
+				self.assertEqual(self.client.get(url, HTTP_HOST='localhost').status_code, 200)
+
+	def test_pages_principales_acceptent_un_url_sans_slash(self):
+		for url in ('/collection', '/nouveautes'):
+			with self.subTest(url=url):
+				self.assertEqual(self.client.get(url, HTTP_HOST='localhost').status_code, 200)
+
 	def test_api_produits_retourne_produits_actifs(self):
 		response = self.client.get('/api/produits/')
 
