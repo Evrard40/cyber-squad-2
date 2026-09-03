@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil - Chez.BizTissu</title>
+    <style>
+        *{ box-sizing: border-box; padding: 0%; margin: 0%; }
+
+        .logo{ font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 22px; font-style: oblique; }
+        nav,ul,li,a{ display: flex; gap: 20px; text-align: center; text-decoration: none; text-transform: uppercase; height: auto; } 
+        a:hover{ background-color: #444; transition: transform 1s; transform: translateY(-8px) ; }
+        a{ text-align: center; background-color: aliceblue; padding: 15px; border-radius: 15px; color: black; font-style: oblique; } 
+        .classe{ font-style: italic; font-size: 35px; color: rgb(6, 241, 37); background-color: rgb(121, 110, 110); padding: 5px 12px; border-radius: 25px; border: 2px solid rgb(10, 236, 183); } 
+
+        header{ background: khaki; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 999; }
+
+        /* HERO AVEC TA PHOTO DE PAGNE */
+        .hero{
+            background: url('image/52e73424ef439953d616ea9da1b0bc0d.jpg') no-repeat center/cover; /* pour mettre d'image derrier le font*/
+            height: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        .hero::after{ /* Voile sombre pour bien lire le texte */
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+        }
+        .hero-contenu{
+            position: relative;
+            z-index: 2;
+        }
+        .hero h1{
+            font-size: 60px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px black;
+        }
+        .hero p{
+            font-size: 22px;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 5px black;
+        }
+        .btn-hero{
+            background: chocolate;
+            color: white;
+            padding: 15px 35px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn-hero:hover{
+            background: #ff8c42;
+            transform: scale(1.1);
+        }
+
+        /* SECTION PRESENTATION */
+        .presentation{
+            padding: 60px 5%;
+            text-align: center;
+            background: beige;
+        }
+        .presentation h2{
+            font-size: 40px;
+            color: chocolate;
+            margin-bottom: 20px;
+        }
+        .presentation p{
+            font-size: 18px;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* SECTION CATEGORIES */
+        .categories{
+            padding: 60px 5%;
+            background: white;
+        }
+        .categories h2{
+            text-align: center;
+            font-size: 40px;
+            color: black;
+            margin-bottom: 40px;
+        }
+        .grid-categorie{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        .cat-carte{
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            text-align: center;
+            transition: 0.3s;
+        }
+        .cat-carte:hover{
+            transform: translateY(-10px);
+        }
+        .cat-carte img{
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        .cat-carte a{
+            display: block;
+            background: chocolate;
+            color: white;
+            padding: 15px;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        footer{ background: #222; color: white; margin-top: 40px; padding-top: 30px; }
+        .footer-contenu{ display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; padding: 0 5%; max-width: 1200px; margin: 0 auto; }
+        .footer-colonne h3{ color: khaki; margin-bottom: 15px; font-size: 20px; }
+        .footer-colonne p, .footer-colonne a{ color: #ccc; line-height: 1.8; text-decoration: none; }
+        .footer-colonne a:hover{ color: #00d4ff; }
+        .reseaux{ display: flex; gap: 15px; }
+        .footer-bas{ text-align: center; padding: 20px; margin-top: 30px; border-top: 1px solid #444; background: #111; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <span class="classe">Tissu d'Exception</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="accueil.html">Acceuil</a></li>
+                <li><a href="Apropos.html">A propos</a></li>
+                <li><a href="menu.html">Menu</a> </li>
+                <li><a href="commande.html">Commande (<span id="nb-article-menu">0</span>)</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- SECTION 1 : GRANDE PHOTO + TEXTE -->
+    <section class="hero">
+        <div class="hero-contenu">
+            <h1>Chez.BizTissu</h1>
+            <p>Votre spécialiste en Wax, Basin et Tissus de qualité au Bénin</p>
+            <a href="menu.html" class="btn-hero">Voir le Catalogue</a>
+        </div>
+    </section>
+
+    <!-- SECTION 2 : QUI SOMMES NOUS -->
+    <section class="presentation">
+        <h2>Bienvenue chez Chez.BizTissu</h2>
+        <p>
+            Depuis Natitingou, nous vous proposons les plus beaux pagnes Wax, Basin riche et Tissus Africa. 
+            Qualité garantie, prix abordable et stock toujours disponible. 
+            Faites de vos tenues des pièces d'exception avec nos tissus.
+        </p>
+    </section>
+
+    <!-- SECTION 3 : NOS CATEGORIES -->
+    <section class="categories">
+        <h2>Nos Collections</h2>
+        <div class="grid-categorie">
+            <div class="cat-carte">
+                <img src="image/81HLgYwWSLL._AC_UF1000,1000_QL80_.jpg" alt="Wax">
+                <a href="menu.html#wax">Les Wax</a>
+            </div>
+            <div class="cat-carte">
+                <img src="image/H10b577c5dcd64d96b804a1adec875fdcm.jpg" alt="Basin">
+                <a href="menu.html#basin">Les Basins</a>
+            </div>
+            <div class="cat-carte">
+                <img src="image/WhatsApp Image 2026-08-31 at 14.01.46.jpeg" alt="Africa">
+                <a href="menu.html#africain">Tissus Africa</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-contenu">
+            <div class="footer-colonne">
+                <h3>Chez.BizTissu</h3>
+                <p>Votre spécialiste en Wax, Basin et tissus de qualité au Bénin.</p>
+            </div>
+            <div class="footer-colonne">
+                <h3>Contact</h3>
+                <p>📍 BENIN / Natitingou, Ourbouga</p>
+                <p>📞 01 97XXXXXXX</p>
+                <p>✉️ chezbiztissu@gmail.com</p>
+            </div>
+            <div class="footer-colonne">
+                <h3>Suivez-nous</h3>
+                <div class="reseaux">
+                    <a href="#">WhatsApp</a>
+                    <a href="#">Facebook</a>
+                    <a href="#">Instagram</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bas">
+            <p>© 2026 Chez.BizTissu. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Pour afficher le nombre d'articles dans le menu
+        let panier = JSON.parse(localStorage.getItem('panier')) || []
+        document.querySelector('#nb-article-menu').textContent = panier.reduce((sum, item) => sum + item.quantite, 0)
+    </script>
+</body>
+</html>
