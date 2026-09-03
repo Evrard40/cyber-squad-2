@@ -59,6 +59,7 @@
     .grille-produits {
       display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem;
     }
+    .carte-produit[hidden] { display: none; }
     .carte-produit {
       background: var(--bg-surface); border: 1px solid var(--border); border-radius: 6px;
       overflow: hidden; transition: var(--transition); display: flex; flex-direction: column;
@@ -144,7 +145,7 @@
 
     <div class="filtre-categories" aria-label="Filtrer par catégorie">
       {% for category in categories %}
-        <button class="bouton-filtre{% if forloop.first %} actif{% endif %}" data-category="{{ category }}">{{ category }}</button>
+        <button type="button" class="bouton-filtre{% if forloop.first %} actif{% endif %}" data-filter="{{ category }}">{{ category }}</button>
       {% endfor %}
     </div>
 
@@ -263,8 +264,10 @@
       bouton.addEventListener('click', () => {
         document.querySelectorAll('.bouton-filtre').forEach((filtre) => filtre.classList.remove('actif'));
         bouton.classList.add('actif');
+        const categorieChoisie = bouton.dataset.filter.trim().normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
         document.querySelectorAll('.carte-produit').forEach((carte) => {
-          carte.hidden = bouton.dataset.category !== 'Toutes' && carte.dataset.category !== bouton.dataset.category;
+          const categorieProduit = carte.dataset.category.trim().normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+          carte.hidden = categorieChoisie !== 'toutes' && categorieProduit !== categorieChoisie;
         });
       });
     });
