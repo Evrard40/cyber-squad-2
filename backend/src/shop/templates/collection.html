@@ -124,6 +124,32 @@
     .btn-envoyer, .btn-modifier { width: 100%; margin-top: 1.2rem; padding: 0.8rem; border: 0; border-radius: 4px; cursor: pointer; font-weight: 600; }
     .btn-envoyer { background: var(--accent); color: white; }
     .btn-modifier { background: var(--primary); color: white; }
+
+    @media (max-width: 768px) {
+      .navbar { flex-wrap: wrap; gap: 0.8rem; padding: 1rem 5%; }
+      .logo { font-size: 1.25rem; letter-spacing: 2px; }
+      .navbar nav { width: 100%; order: 3; }
+      .nav-links { justify-content: center; gap: 1rem 1.4rem; flex-wrap: wrap; }
+      .header-actions { margin-left: auto; }
+      .container { margin: 2rem auto 3rem; padding: 0 1rem; }
+      .page-header h1 { font-size: 1.8rem; }
+      .grille-produits { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+      .image-produit { height: 180px; }
+      .infos-produit { padding: 1rem; }
+      .controle-metrage { align-items: flex-start; flex-wrap: wrap; }
+      .controle-metrage span { font-size: 0.85rem; }
+      .tiroir-panier { width: min(380px, 92vw); }
+      .form-contenu { padding: 1.5rem; }
+    }
+
+    @media (max-width: 520px) {
+      .nav-links { gap: 0.7rem; font-size: 0.9rem; }
+      .grille-produits { grid-template-columns: 1fr; }
+      .image-produit { height: 220px; }
+      .page-header h1 { font-size: 1.55rem; }
+      .bouton-filtre { flex: 1 1 auto; }
+      .form-contenu { padding: 1.25rem; }
+    }
   </style>
 </head>
 <body>
@@ -194,7 +220,7 @@
         <span>Total :</span>
         <span id="totalPanier">0 F CFA</span>
       </div>
-      <button class="bouton-commande" id="boutonCommande">Valider la Commande</button>
+      <button class="bouton-commande" id="boutonCommande">Confirmer la Commande</button>
     </div>
   </aside>
 
@@ -216,7 +242,7 @@
         <label for="adresse">Lieu de domicile / Adresse *</label>
         <input type="text" id="adresse" required placeholder="Ex: Abomey-Calavi, Godomey, près du marché">
         <label for="telephone">Numéro Téléphone / WhatsApp *</label>
-        <input type="tel" id="telephone" required placeholder="Ex: +299 0197XXXXXX">
+        <input type="number" id="telephone" required placeholder="Ex: +299 01XXXXXXXX">
         <button type="submit" class="btn-envoyer">Envoyer la commande</button>
         <button type="button" class="btn-modifier" onclick="fermerFormulaire()">Modifier la commande</button>
       </form>

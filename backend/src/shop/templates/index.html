@@ -117,6 +117,30 @@
     .btn-envoyer, .btn-modifier { width: 100%; margin-top: 1.2rem; padding: 0.8rem; border: 0; border-radius: 4px; cursor: pointer; font-weight: 600; }
     .btn-envoyer { background: var(--accent); color: white; }
     .btn-modifier { background: var(--primary); color: white; }
+
+    @media (max-width: 768px) {
+      .navbar { flex-wrap: wrap; gap: 0.8rem; padding: 1rem 5%; }
+      .logo { font-size: 1.25rem; letter-spacing: 2px; }
+      .navbar nav { width: 100%; order: 3; }
+      .nav-links { justify-content: center; gap: 1rem 1.4rem; flex-wrap: wrap; }
+      .header-actions { margin-left: auto; }
+      .hero { min-height: 62vh; height: auto; padding: 4rem 1rem; }
+      .hero-content h1 { font-size: 2.2rem; }
+      .hero-content p { font-size: 1rem; }
+      .features-grid { grid-template-columns: 1fr; margin: -2rem auto 3rem; padding: 0 1rem; gap: 1rem; }
+      .feature-card { padding: 1.5rem; }
+      .container { margin-bottom: 3rem; padding: 0 1rem; }
+      .section-title { font-size: 1.6rem; margin-bottom: 1.5rem; }
+      .tiroir-panier { width: min(380px, 92vw); }
+      .form-contenu { padding: 1.5rem; }
+    }
+
+    @media (max-width: 420px) {
+      .nav-links { gap: 0.7rem; font-size: 0.9rem; }
+      .hero-content h1 { font-size: 1.8rem; }
+      .btn-hero { width: 100%; padding: 0.85rem 1rem; }
+      .form-contenu { padding: 1.25rem; }
+    }
   </style>
 </head>
 <body>
@@ -171,7 +195,7 @@
   <main class="container">
     <h2 class="section-title">La Maison Tissuthèque</h2>
     <p style="text-align: center; max-width: 800px; margin: 0 auto; color: var(--text-muted); font-size: 1.1rem;">
-      Depuis plus de 15 ans, nous sélectionnons des étoiles textiles auprès des plus grands ateliers. Que vous soyez couturier chevronné ou passionné de création maison, nous vous accompagnons avec des matières rares et durables.
+      Depuis plus de 2 ans, nous sélectionnons des étoiles textiles auprès des plus grands ateliers. Que vous soyez couturier chevronné ou passionné de création maison, nous vous accompagnons avec des matières rares et durables.
     </p>
   </main>
 
