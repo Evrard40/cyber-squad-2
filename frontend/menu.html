@@ -68,7 +68,9 @@
              transform: translateY(-8px) ;
               animation: mouvement 1s infinite; }  /* Pour  faire l'animation des cartes*/
 
-
+            nav a.active{
+            color: #ff8c42;
+        }
         .bnt_ajouter{ background: chocolate; 
             color: white; border: none;
              padding: 10px 20px; border-radius: 8px;
@@ -145,7 +147,7 @@ header, nav, ul { flex-wrap: wrap; } /* pour que ça ne casse pas */
             <ul>
                 <li><a href="accueil.html">Acceuil</a></li>
                 <li><a href="a propos.html">A propos</a></li>
-                <li><a href="menu.html">Menu</a> </li>
+                <li><a href="menu.html" class="active">Menu</a> </li>
                 <li><a href="commande.html">Commande (<span id="nb-article-menu">0</span>)</a></li>
             </ul>
         </nav>

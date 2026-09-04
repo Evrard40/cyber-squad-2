@@ -80,6 +80,10 @@
     padding-top: 30px;
 }
 
+    nav a.active{
+            color: #ff8c42;
+        }
+
 .footer-contenu{
     display: grid; /* On utilise grid pour 3 colonnes */
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -162,8 +166,8 @@ header, nav, ul { flex-wrap: wrap; }
             <ul>
                 <li><a href="accueil.html">Acceuil</a></li>
                 <li><a href="a propos.html">A propos</a></li>
-                <li><a href="menu.html">Menu</a> </li>
-                <li><a href="commande.html">Panier (<span id="nb-article-menu">0</span>)</a></li>
+                <li><a href="menu.html" >Menu</a> </li>
+                <li><a href="commande.html" class="active">Panier (<span id="nb-article-menu">0</span>)</a></li>
             </ul>
         </nav>
     </header>
