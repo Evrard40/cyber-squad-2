@@ -194,10 +194,10 @@ header, nav, ul { flex-wrap: wrap; } /* pour que ça ne casse pas */
         </div>
         <nav>
             <ul>
-                <li><a href="accueil.html" class="active">Acceuil</a></li>
-                <li><a href="a propos.html" >A propos</a></li>
-                <li><a href="menu.html" >Menu</a> </li>
-                <li><a href="commande.html">Commande (<span id="nb-article-menu">0</span>)</a></li>
+                <li><a href="{% url 'accueil' %}" class="active">Acceuil</a></li>
+                <li><a href="{% url 'a-propos' %}" >A propos</a></li>
+                <li><a href="{% url 'collection' %}" >Menu</a> </li>
+                <li><a href="{% url 'commande' %}">Commande (<span id="nb-article-menu">0</span>)</a></li>
             </ul>
         </nav>
     </header>
@@ -207,7 +207,7 @@ header, nav, ul { flex-wrap: wrap; } /* pour que ça ne casse pas */
         <div class="hero-contenu">
             <h1>Prestige pagne</h1>
             <p>Votre spécialiste en Wax, Basin et Tissus de qualité au Bénin</p>
-            <a href="menu.html" class="btn-hero">Voir le Catalogue</a>
+            <a href="{% url 'collection' %}" class="btn-hero">Voir le Catalogue</a>
         </div>
     </section>
 
@@ -227,15 +227,15 @@ header, nav, ul { flex-wrap: wrap; } /* pour que ça ne casse pas */
         <div class="grid-categorie">
             <div class="cat-carte">
                 <img src="image/81HLgYwWSLL._AC_UF1000,1000_QL80_.jpg" alt="Wax">
-                <a href="menu.html#wax">Les Wax</a>
+                        <a href="{% url 'collection' %}#wax">Les Wax</a>
             </div>
             <div class="cat-carte">
                 <img src="image/H10b577c5dcd64d96b804a1adec875fdcm.jpg" alt="Basin">
-                <a href="menu.html#basin">Les Basins</a>
+                        <a href="{% url 'collection' %}#basin">Les Basins</a>
             </div>
             <div class="cat-carte">
                 <img src="image/WhatsApp Image 2026-08-31 at 14.01.46.jpeg" alt="Africa">
-                <a href="menu.html#africain">Tissus Africa</a>
+                        <a href="{% url 'collection' %}#africain">Tissus Africa</a>
             </div>
         </div>
     </section>

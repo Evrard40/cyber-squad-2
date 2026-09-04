@@ -17,7 +17,7 @@ class TestsBoutique(TestCase):
 		)
 
 	def test_pages_principales_sont_accessibles(self):
-		for url in ('/', '/collection/', '/nouveautes/'):
+		for url in ('/', '/index/', '/collection/', '/nouveautes/', '/a-propos/', '/commande/'):
 			with self.subTest(url=url):
 				self.assertEqual(self.client.get(url, HTTP_HOST='localhost').status_code, 200)
 

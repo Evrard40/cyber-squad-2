@@ -164,10 +164,10 @@ header, nav, ul { flex-wrap: wrap; }
         </div>
         <nav>
             <ul>
-                <li><a href="accueil.html">Acceuil</a></li>
-                <li><a href="a propos.html">A propos</a></li>
-                <li><a href="menu.html" >Menu</a> </li>
-                <li><a href="commande.html" class="active">Panier (<span id="nb-article-menu">0</span>)</a></li>
+                <li><a href="{% url 'accueil' %}">Acceuil</a></li>
+                <li><a href="{% url 'a-propos' %}">A propos</a></li>
+                <li><a href="{% url 'collection' %}" >Menu</a> </li>
+                <li><a href="{% url 'commande' %}" class="active">Panier (<span id="nb-article-menu">0</span>)</a></li>
             </ul>
         </nav>
     </header>
