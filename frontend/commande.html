@@ -17,7 +17,14 @@
             font-style: oblique;
             list-style: none;
         }
-
+        .logo{ font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 22px; font-style: oblique; }
+        nav,ul,li,a{ display: flex;
+            
+            flex-wrap: wrap;
+            gap: 20px; text-align: center; text-decoration: none; text-transform: uppercase; height: auto; } 
+        a:hover{ background-color: #444; transition: transform 1s; transform: translateY(-8px) ; }
+        a{ text-align: center; background-color: aliceblue; padding: 15px; border-radius: 15px; color: black; font-style: oblique; } 
+        .classe{ font-style: italic; font-size: 35px; color: rgb(6, 241, 37); background-color: rgb(121, 110, 110); padding: 5px 12px; border-radius: 25px; border: 2px solid rgb(10, 236, 183); } 
 
         header{ background: khaki; padding: 15px 5%; display: flex;
              justify-content: space-between; align-items: center;
@@ -112,53 +119,36 @@
     font-size: 14px;
 }
 
+img { max-width: 100%; height: auto; }
+header, nav, ul { flex-wrap: wrap; }
 
-
-
-/* ========== RESPONSIVE ICI ========== */
-
-/* AJOUTS DANS TON CSS EXISTANT */
-img{ width: 100%; } /* j'ai changé width: 300px en 100% */
-header, nav, ul { flex-wrap: wrap; } /* pour que ça ne casse pas */
-.bnt_ajouter{ width: 100%; } /* bouton prend toute la largeur */
-
-/* TABLETTE : 2 colonnes */
-@media screen and (max-width: 900px){
-    .robot{
-        grid-template-columns: repeat(2 ,1fr); 
-    }
-    .classe{
-        font-size: 25px;
-    }
-    h1{
-        font-size: 28px;
-    }
+@media screen and (max-width: 900px) {
+    .classe { font-size: 25px; }
+    h1 { font-size: 28px; }
 }
 
-/* TELEPHONE : 1 colonne + menu en colonne */
-@media screen and (max-width: 600px){
-    header{
-        flex-direction: column;
-        gap: 15px;
-    }
-    nav ul{
-        flex-direction: column;
-        gap: 10px;
-        width: 100%;
-    }
-    nav ul li a{
-        width: 100%;
-    }
-    .robot{
-        grid-template-columns: repeat(1 ,1fr);
-        padding: 10px;
-    }
-    .classe{
-        font-size: 22px;
-    }
-    h1{
-        font-size: 24px;
-    }
+@media (max-width: 768px) {
+    header { flex-wrap: wrap; gap: 15px; padding: 15px 5%; }
+    header nav { width: 100%; }
+    header nav ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 18px; }
+    .classe { font-size: 26px; }
+    .zone-panier { margin: 15px 10px; padding: 15px; }
+    .form-contenu { width: calc(100% - 24px); padding: 24px 18px; }
+    .footer-contenu { grid-template-columns: 1fr; padding: 0 8%; gap: 20px; }
+}
+
+
+@media screen and (max-width: 600px) {
+    header { flex-direction: column; gap: 15px; }
+    nav ul { flex-direction: column; gap: 10px; width: 100%; }
+    nav ul li a { display: block; width: 100%; }
+    .classe { font-size: 22px; }
+    h1 { font-size: 24px; }
+    header nav ul { font-size: 13px; gap: 8px 12px; }
+    .zone-panier h2 { font-size: 20px; }
+    #liste-panier div { align-items: flex-start; gap: 8px; font-size: 14px; }
+    .form-contenu h2 { font-size: 22px; }
+    .footer-bas { padding: 15px 10px; font-size: 12px; }
 }
     </style>
 </head>
@@ -185,7 +175,7 @@ header, nav, ul { flex-wrap: wrap; } /* pour que ça ne casse pas */
         <button class="btn-commander" onclick="ouvrirFormulaire()">Valider la commande</button>
     </div>
 
-    <!-- POPUP FORMULAIRE -->
+    <!-- POUR FORMULAIRE -->
     <div id="popup-form" class="hidden" onclick="fermerSiFond(event)">
         <div class="form-contenu" onclick="event.stopPropagation()">
             <span id="fermer-form" onclick="fermerFormulaire()">&times;</span>

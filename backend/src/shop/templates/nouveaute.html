@@ -123,6 +123,43 @@
     .btn-envoyer, .btn-modifier { width: 100%; margin-top: 1.2rem; padding: 0.8rem; border: 0; border-radius: 4px; cursor: pointer; font-weight: 600; }
     .btn-envoyer { background: var(--accent); color: white; }
     .btn-modifier { background: var(--primary); color: white; }
+
+    footer { margin-top: 4rem; padding-top: 2.5rem; background: var(--primary); color: white; }
+    .footer-contenu { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+    .footer-colonne h3 { margin-bottom: 0.8rem; color: var(--accent); }
+    .footer-colonne p, .footer-colonne a { color: #d8d5cf; line-height: 1.8; text-decoration: none; }
+    .footer-colonne a:hover { color: var(--accent); }
+    .reseaux { display: flex; flex-wrap: wrap; gap: 1rem; }
+    .footer-bas { margin-top: 2rem; padding: 1rem; border-top: 1px solid #3a3a3a; background: #090909; text-align: center; color: #aaa; font-size: 0.9rem; }
+
+    @media (max-width: 768px) {
+      .navbar { flex-wrap: wrap; gap: 0.8rem; padding: 1rem 5%; }
+      .logo { font-size: 1.25rem; letter-spacing: 2px; }
+      .navbar nav { width: 100%; order: 3; }
+      .nav-links { justify-content: center; gap: 1rem 1.4rem; flex-wrap: wrap; }
+      .header-actions { margin-left: auto; }
+      .container { margin: 2rem auto 3rem; padding: 0 1rem; }
+      .page-header h1 { font-size: 1.8rem; }
+      .grille-produits { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+      .image-produit { height: 180px; }
+      .infos-produit { padding: 1rem; }
+      .controle-metrage { align-items: flex-start; flex-wrap: wrap; }
+      .controle-metrage span { font-size: 0.85rem; }
+      .tiroir-panier { width: min(380px, 92vw); }
+      .form-contenu { padding: 1.5rem; }
+    }
+
+    @media (max-width: 520px) {
+      .nav-links { gap: 0.7rem; font-size: 0.9rem; }
+      .grille-produits { grid-template-columns: 1fr; }
+      .image-produit { height: 220px; }
+      .page-header h1 { font-size: 1.55rem; }
+      .form-contenu { padding: 1.25rem; }
+    }
+
+    @media (max-width: 768px) {
+      .footer-contenu { grid-template-columns: 1fr; padding: 0 1rem; gap: 1.5rem; }
+    }
   </style>
 </head>
 <body>
@@ -173,6 +210,28 @@
       {% endfor %}
     </div>
   </main>
+
+  <footer>
+    <div class="footer-contenu">
+      <div class="footer-colonne">
+        <h3>TISSUTHÈQUE</h3>
+        <p>Des tissus d'exception pour donner vie à vos créations.</p>
+      </div>
+      <div class="footer-colonne">
+        <h3>Navigation</h3>
+        <p><a href="{% url 'accueil' %}">Accueil</a></p>
+        <p><a href="{% url 'collection' %}">Collection</a></p>
+        <p><a href="{% url 'nouveautes' %}">Nouveautés</a></p>
+      </div>
+      <div class="footer-colonne">
+        <h3>Contact</h3>
+        <p>Natitingou, Bénin</p>
+        <p>+229 01 97 XX XX XX</p>
+        <p>contact@tissutheque.com</p>
+      </div>
+    </div>
+    <div class="footer-bas"><p>&copy; 2026 TISSUTHÈQUE. Tous droits réservés.</p></div>
+  </footer>
 
   <!-- PANIER SLIDE-OVER -->
   <div class="voile" id="voile"></div>
